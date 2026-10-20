@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}Group Discussion Practice — AI Placement Portal{% endblock %}
+
+{% block content %}
+<div class="portal-container">
+  
+  <h1 class="page-title">🗣️ Group Discussion Practice</h1>
+
+  <!-- Module information bar -->
+  <div class="module-bar">
+    <div class="module-bar-left">
+      <span class="module-bar-label">Module:</span>
+      <span class="module-bar-desc">Campus Placement Group Discussion & Ideation</span>
+    </div>
+    <button type="button" id="generateGdTopicBtn" class="btn btn-primary">
+      <span>Generate New GD Topic</span>
+    </button>
+  </div>
+
+  <!-- Two-Column Practice Area -->
+  <div class="two-column-layout">
+
+    <!-- Left Column: Topic & Opinion Submission -->
+    <div class="content-card" id="gdTopicCard">
+      <div class="card-header-row">
+        <span class="card-tag" id="gdCategoryTag">WORKPLACE & ECONOMY</span>
+        <span class="word-count-badge" id="gdWordCount">0 words</span>
+      </div>
+
+      <h2 class="question-text" id="gdTopicTitle" style="font-size: 1.05rem;">
+        Work From Home vs Office Work: The Future of Corporate Productivity
+      </h2>
+
+      <p id="gdContextText" style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5;">
+        Post-pandemic organizations are debating between fully remote flexibility and in-office collaboration for innovation, mentorship, and team cohesion.
+      </p>
+
+      <div class="form-group" style="margin-bottom: 0;">
+        <label for="gdOpinionInput" class="form-label">Your Standpoint & Discussion Contribution:</label>
+        <textarea 
+          id="gdOpinionInput" 
+          class="form-textarea" 
+          placeholder="Present your arguments with logical structure, real-world examples, and a balanced consideration of opposing viewpoints..."
+          rows="8"
+        ></textarea>
+      </div>
+
+      <div class="card-footer-row">
+        <span class="footer-caption">Multi-perspective grading active</span>
+        <button type="button" id="submitGdBtn" class="btn btn-primary">
+          <span>Submit & Evaluate Discussion →</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Column: Evaluation Panel -->
+    <div class="eval-panel" id="gdEvalPanel">
+      <div class="eval-placeholder" id="gdPlaceholder">
+        Your strict GD evaluation, argumentation breakdown, and model discussion points will appear here after submission.
+      </div>
+
+      <div id="gdResultsContent" style="display: none;">
+        
+        <div class="score-header-box">
+          <div class="score-meta-label">Discussion Performance Score</div>
+          <div class="score-main-row">
+            <div class="big-score" id="gdScoreVal">0.0<span>/ 10</span></div>
+            <div class="badge-status" id="gdScoreBadge">EVALUATED</div>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="gdProgressFill" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- Rubric Breakdown -->
+        <div class="breakdown-card">
+          <div class="breakdown-title">
+            <span>📊</span>
+            <span>GD Evaluation Rubric</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-row-label">Topic Relevance & Focus</span>
+            <span class="breakdown-row-val" id="gdRelevance">-</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-row-label">Argument Quality & Depth</span>
+            <span class="breakdown-row-val" id="gdArgument">-</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-row-label">Logical Structure & Flow</span>
+            <span class="breakdown-row-val" id="gdStructure">-</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-row-label">Supporting Evidence & Examples</span>
+            <span class="breakdown-row-val" id="gdExamples">-</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-row-label">Communication & Articulation</span>
+            <span class="breakdown-row-val" id="gdComm">-</span>
+          </div>
+        </div>
+
+        <!-- Feedback & Analysis Blocks -->
+        <div class="detail-block">
+          <h4>Strengths</h4>
+          <p id="gdStrengths">-</p>
+        </div>
+
+        <div class="detail-block" style="border-left: 3px solid var(--danger);">
+          <h4 style="color: var(--danger-text);">Weaknesses & Gaps</h4>
+          <p id="gdWeaknesses">-</p>
+        </div>
+
+        <div class="detail-block" style="border-left: 3px solid var(--warning);">
+          <h4 style="color: var(--warning-text);">Missed Counterarguments</h4>
+          <p id="gdCounter">-</p>
+        </div>
+
+        <div class="detail-block" style="border-left: 3px solid var(--primary);">
+          <h4 style="color: var(--primary);">Model Discussion Synthesis</h4>
+          <p id="gdModelText" style="white-space: pre-line;">-</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/gd.js') }}"></script>
+{% endblock %}

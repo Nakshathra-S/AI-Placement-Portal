@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}AI Placement Portal — AI-Based Placement Preparation Portal{% endblock %}</title>
+  <meta name="description" content="AI-Based Campus Placement Preparation Portal — Practice technical questions, HR behavioral interviews, group discussions, and English grammar with strict diagnostic scoring.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="{{ url_for('dashboard.home') }}" class="nav-brand">
+        <!-- SVG Graduation Cap matching Screenshots -->
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+          <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+        </svg>
+        <span>AI Placement Portal</span>
+      </a>
+
+      {% if session.get('user_id') %}
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+
+      <ul class="nav-menu" id="navMenu">
+        <li class="nav-item"><a href="{{ url_for('dashboard.dashboard_page') }}" class="{% if request.endpoint == 'dashboard.dashboard_page' %}active{% endif %}">Dashboard</a></li>
+        <li class="nav-item"><a href="{{ url_for('technical.technical_page') }}" class="{% if request.endpoint == 'technical.technical_page' %}active{% endif %}">Technical</a></li>
+        <li class="nav-item"><a href="{{ url_for('hr.hr_page') }}" class="{% if request.endpoint == 'hr.hr_page' %}active{% endif %}">HR</a></li>
+        <li class="nav-item"><a href="{{ url_for('gd.gd_page') }}" class="{% if request.endpoint == 'gd.gd_page' %}active{% endif %}">GD</a></li>
+        <li class="nav-item"><a href="{{ url_for('english.english_page') }}" class="{% if request.endpoint == 'english.english_page' %}active{% endif %}">English</a></li>
+        <li class="nav-item"><a href="{{ url_for('history.history_page') }}" class="{% if request.endpoint == 'history.history_page' %}active{% endif %}">History</a></li>
+        <li class="nav-item"><a href="{{ url_for('auth.logout') }}" class="nav-logout">Logout</a></li>
+      </ul>
+      {% endif %}
+    </div>
+  </header>
+
+  <!-- Page Content -->
+  <main class="main-wrapper">
+    {% block content %}{% endblock %}
+  </main>
+
+  <script>
+    // Responsive Navigation Toggle
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('open');
+      });
+    }
+  </script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

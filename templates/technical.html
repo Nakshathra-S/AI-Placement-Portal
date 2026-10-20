@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}Technical Interview Practice — AI Placement Portal{% endblock %}
+
+{% block content %}
+<div class="portal-container">
+  
+  <h1 class="page-title">💻 Technical Interview Practice</h1>
+
+  <!-- Role selection header bar matching Screenshot 2 -->
+  <div class="content-card" style="background: var(--bg-page); padding: 20px 22px; margin-bottom: 26px;">
+    <div class="form-group" style="margin-bottom: 14px;">
+      <label for="jobRoleSelect" class="form-label" style="font-size: 0.92rem; font-weight: 700;">
+        Target Job Role:
+      </label>
+      <select id="jobRoleSelect" class="form-select">
+        <option value="Full Stack Developer" selected>Full Stack Developer</option>
+        <option value="Python Developer">Python Developer</option>
+        <option value="Java Developer">Java Developer</option>
+        <option value="Data Analyst">Data Analyst</option>
+        <option value="AI/ML Engineer">AI/ML Engineer</option>
+        <option value="Cyber Security Analyst">Cyber Security Analyst</option>
+      </select>
+    </div>
+
+    <button type="button" id="generateQuestionsBtn" class="btn btn-primary">
+      <span>Generate 5 Technical Questions</span>
+    </button>
+  </div>
+
+  <!-- Two-Column Practice Area -->
+  <div class="two-column-layout">
+
+    <!-- Left Column: Question & Answer Area -->
+    <div class="content-card" id="questionCard">
+      <div class="card-header-row">
+        <span class="card-tag" id="questionProgressTag">QUESTION 1 OF 5</span>
+        <span class="word-count-badge" id="wordCountBadge">0 words</span>
+      </div>
+
+      <div class="question-text" id="questionDisplay">
+        As a Full Stack Developer, you often work with both frontend and backend technologies. Can you explain the differences between client-side rendering (CSR) and server-side rendering (SSR) and when you might choose one over the other for a web application?
+      </div>
+
+      <div class="form-group" style="margin-bottom: 0;">
+        <textarea 
+          id="technicalAnswerInput" 
+          class="form-textarea" 
+          placeholder="Type your detailed answer here... (Tip: Answers under 20 words or containing incorrect facts will receive strict penalties)."
+          rows="7"
+        ></textarea>
+      </div>
+
+      <div class="card-footer-row">
+        <span class="footer-caption">Strict grading active</span>
+        <button type="button" id="submitAnswerBtn" class="btn btn-primary">
+          <span>Submit & Evaluate Answer →</span>
+        </button>
+      </div>
+
+      <!-- Navigation Between Questions -->
+      <div id="navQuestionsRow" style="display: none; justify-content: space-between; align-items: center; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border);">
+        <button type="button" id="prevQBtn" class="btn" style="background: var(--surface-alt); font-size: 0.85rem;" disabled>
+          ← Previous
+        </button>
+        <span id="qIndicatorText" style="font-size: 0.84rem; color: var(--text-muted); font-weight: 600;">Question 1 of 5</span>
+        <button type="button" id="nextQBtn" class="btn btn-primary" style="font-size: 0.85rem;">
+          Next Question →
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Column: Evaluation Panel -->
+    <div class="eval-panel" id="evalPanel">
+      <div class="eval-placeholder" id="evalPlaceholder">
+        Your strict AI evaluation, score breakdown, and model answer will appear here after submission.
+      </div>
+
+      <div id="evalResultsContent" style="display: none;">
+        
+        <div class="score-header-box">
+          <div class="score-meta-label">Technical Assessment Score</div>
+          <div class="score-main-row">
+            <div class="big-score" id="techScoreVal">0.0<span>/ 10</span></div>
+            <div class="badge-status" id="techScoreBadge">EVALUATED</div>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="techProgressFill" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- Score Breakdown -->
+        <div class="breakdown-card">
+          <div class="breakdown-title">
+            <span>📊</span>
+            <span>Rubric Breakdown</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-row-label">Conceptual Accuracy</span>
+            <span class="breakdown-row-val" id="scoreConcept">-</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-row-label">Factual Correctness</span>
+            <span class="breakdown-row-val" id="scoreFactual">-</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-row-label">Completeness & Depth</span>
+            <span class="breakdown-row-val" id="scoreComplete">-</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-row-label">Structure & Clarity</span>
+            <span class="breakdown-row-val" id="scoreClarity">-</span>
+          </div>
+        </div>
+
+        <!-- Feedback & Analysis Blocks -->
+        <div class="detail-block">
+          <h4>Strengths</h4>
+          <p id="techStrengths">-</p>
+        </div>
+
+        <div class="detail-block" style="border-left: 3px solid var(--danger);">
+          <h4 style="color: var(--danger-text);">Missing Concepts & Errors</h4>
+          <p id="techMissing">-</p>
+        </div>
+
+        <div class="detail-block" style="border-left: 3px solid var(--primary);">
+          <h4 style="color: var(--primary);">Model Technical Answer</h4>
+          <p id="techModelAnswer" style="white-space: pre-line;">-</p>
+        </div>
+
+        <div class="detail-block">
+          <h4>Improvement Suggestions</h4>
+          <p id="techSuggestions">-</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/technical.js') }}"></script>
+{% endblock %}

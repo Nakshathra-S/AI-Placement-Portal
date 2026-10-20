@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Previous Attempt History — AI Placement Portal{% endblock %}
+
+{% block content %}
+<div class="portal-container">
+  
+  <h1 class="page-title">📊 Previous Attempt History</h1>
+  <p class="page-subtitle">
+    Review all past AI interview evaluations, diagnostic scores, and learning progress.
+  </p>
+
+  <div id="historyNotification" class="alert-box alert-success" style="margin-bottom: 20px;"></div>
+
+  <!-- History Cards List matching Screenshot 5 -->
+  <div id="historyListContainer" class="history-list">
+    <div class="empty-state">
+      <div class="spinner" style="border-top-color: var(--primary); border-color: rgba(37,99,235,0.2); width: 28px; height: 28px;"></div>
+      <p style="margin-top: 14px;">Loading previous attempt history...</p>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/history.js') }}"></script>
+{% endblock %}

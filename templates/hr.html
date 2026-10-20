@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}HR Behavioral Interview Practice — AI Placement Portal{% endblock %}
+
+{% block content %}
+<div class="portal-container">
+  
+  <h1 class="page-title">🤝 HR Behavioral Interview Practice</h1>
+
+  <!-- Module information bar matching Screenshot 3 -->
+  <div class="module-bar">
+    <div class="module-bar-left">
+      <span class="module-bar-label">Module:</span>
+      <span class="module-bar-desc">Common Behavioral HR Interview Questions</span>
+    </div>
+    <button type="button" id="loadHrBtn" class="btn btn-primary">
+      <span>Load HR Questions</span>
+    </button>
+  </div>
+
+  <!-- Two-Column Practice Area -->
+  <div class="two-column-layout">
+
+    <!-- Left Column: HR Question Cards -->
+    <div id="hrQuestionsContainer" style="display: flex; flex-direction: column; gap: 20px;">
+      
+      <!-- Card 1: Tell me about yourself -->
+      <div class="content-card hr-question-card" data-qid="1">
+        <div class="card-header-row" style="margin-bottom: 8px;">
+          <h3 class="question-text" style="margin-bottom: 0;">1. Tell me about yourself.</h3>
+          <span class="word-count-badge hr-words">0 words</span>
+        </div>
+        <div class="form-group" style="margin-bottom: 12px;">
+          <textarea 
+            class="form-textarea hr-input" 
+            placeholder="Type your answer... (Tip: Structure your response using Situation, Task, Action, Result for high scores)."
+            rows="5"
+          ></textarea>
+        </div>
+        <div class="card-footer-row" style="margin-top: 0;">
+          <span class="footer-caption">Behavioral rubric active</span>
+          <button type="button" class="btn btn-primary btn-eval-hr">
+            <span>Submit & Evaluate →</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 2: Why should we hire you? -->
+      <div class="content-card hr-question-card" data-qid="2">
+        <div class="card-header-row" style="margin-bottom: 8px;">
+          <h3 class="question-text" style="margin-bottom: 0;">2. Why should we hire you?</h3>
+          <span class="word-count-badge hr-words">0 words</span>
+        </div>
+        <div class="form-group" style="margin-bottom: 12px;">
+          <textarea 
+            class="form-textarea hr-input" 
+            placeholder="Type your answer... (Tip: Structure your response using Situation, Task, Action, Result for high scores)."
+            rows="5"
+          ></textarea>
+        </div>
+        <div class="card-footer-row" style="margin-top: 0;">
+          <span class="footer-caption">Behavioral rubric active</span>
+          <button type="button" class="btn btn-primary btn-eval-hr">
+            <span>Submit & Evaluate →</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Column: Evaluation Panel -->
+    <div class="eval-panel" id="hrEvalPanel">
+      <div class="eval-placeholder" id="hrPlaceholder">
+        Your strict HR evaluation, STAR methodology rating, and model answer will appear here.
+      </div>
+
+      <div id="hrResultsContent" style="display: none;">
+        
+        <div class="score-header-box">
+          <div class="score-meta-label">Behavioral Assessment Score</div>
+          <div class="score-main-row">
+            <div class="big-score" id="hrScoreVal">0.0<span>/ 10</span></div>
+            <div class="badge-status" id="hrScoreBadge">EVALUATED</div>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="hrProgressFill" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- STAR Rubric Breakdown -->
+        <div class="breakdown-card">
+          <div class="breakdown-title">
+            <span>⭐</span>
+            <span>STAR Methodology Breakdown</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-row-label">Situation (Context & Framing)</span>
+            <span class="breakdown-row-val" id="starSituation">-</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-row-label">Task (Specific Challenge)</span>
+            <span class="breakdown-row-val" id="starTask">-</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-row-label">Action (Candidate's Initiatives)</span>
+            <span class="breakdown-row-val" id="starAction">-</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-row-label">Result (Measurable Outcome)</span>
+            <span class="breakdown-row-val" id="starResult">-</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-row-label">Professional Tone & Impact</span>
+            <span class="breakdown-row-val" id="starTone">-</span>
+          </div>
+        </div>
+
+        <!-- Feedback & Analysis Blocks -->
+        <div class="detail-block">
+          <h4>Strengths</h4>
+          <p id="hrStrengths">-</p>
+        </div>
+
+        <div class="detail-block" style="border-left: 3px solid var(--danger);">
+          <h4 style="color: var(--danger-text);">Weaknesses & Missing Elements</h4>
+          <p id="hrWeaknesses">-</p>
+        </div>
+
+        <div class="detail-block" style="border-left: 3px solid var(--primary);">
+          <h4 style="color: var(--primary);">Exemplary Model Response</h4>
+          <p id="hrModelAnswer" style="white-space: pre-line;">-</p>
+        </div>
+
+        <div class="detail-block">
+          <h4>Suggestions for Next Round</h4>
+          <p id="hrSuggestions">-</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/hr.js') }}"></script>
+{% endblock %}

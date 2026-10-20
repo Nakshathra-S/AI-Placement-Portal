@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Candidate Login — AI Placement Portal{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <h1 class="auth-title">Candidate Login</h1>
+    <p class="auth-desc">Sign in to access AI interview modules and diagnostic feedback.</p>
+
+    <div id="authAlert" class="alert-box alert-danger"></div>
+
+    <form id="loginForm" method="POST" action="{{ url_for('auth.login_api') }}">
+      <div class="form-group">
+        <label for="email" class="form-label">Email Address</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          class="form-control" 
+          placeholder="name@domain.com" 
+          required 
+          autocomplete="email"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          class="form-control" 
+          placeholder="••••••••" 
+          required 
+          autocomplete="current-password"
+        >
+      </div>
+
+      <button type="submit" id="submitBtn" class="btn btn-primary btn-full">
+        <span>Sign In →</span>
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <span>Don't have an account?</span>
+      <a href="{{ url_for('auth.register_page') }}" class="auth-link">Create an account</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+{% endblock %}

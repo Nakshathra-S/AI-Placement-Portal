@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard — AI Placement Portal{% endblock %}
+
+{% block content %}
+<div class="portal-container">
+  
+  <div class="dash-welcome-card">
+    <h1 class="page-title">Welcome back, {{ user.name }}! 👋</h1>
+    <p class="page-subtitle" style="margin-bottom: 0;">
+      AI-Based Placement Preparation Portal — Practice real-world interview assessments, receive strict diagnostic grading, and accelerate your campus hiring readiness.
+    </p>
+  </div>
+
+  <!-- Quick Stats -->
+  <div class="dash-stats-grid">
+    <div class="stat-card">
+      <div class="stat-card-title">Total Attempts</div>
+      <div class="stat-card-val" id="statTotal">{{ stats.total_attempts }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-title">Average Score</div>
+      <div class="stat-card-val" id="statAvg">{{ stats.average_score }}<span>/10</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-title">Best Score</div>
+      <div class="stat-card-val" id="statBest">{{ stats.best_score }}<span>/10</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-title">Readiness Index</div>
+      <div class="stat-card-val" id="statReadiness">{% if stats.total_attempts > 0 %}{{ (stats.average_score * 10)|round|int }}%{% else %}0%{% endif %}</div>
+    </div>
+  </div>
+
+  <!-- 4 Core Modules Grid -->
+  <h2 style="font-size: 1.15rem; font-weight: 700; color: var(--text-main); margin-bottom: 18px;">
+    🎯 Placement Preparation Modules
+  </h2>
+
+  <div class="dash-modules-grid">
+    
+    <!-- 1. Technical Practice -->
+    <div class="module-card">
+      <div>
+        <div class="module-card-icon">💻</div>
+        <h3 class="module-card-title">Technical Interview Practice</h3>
+        <p class="module-card-desc">
+          Role-specific interview rounds covering Full Stack, Python, Java, Data Analytics, AI/ML, and Cybersecurity with strict concept grading and model answers.
+        </p>
+      </div>
+      <div>
+        <a href="{{ url_for('technical.technical_page') }}" class="btn btn-primary btn-full">
+          Start Technical Practice →
+        </a>
+      </div>
+    </div>
+
+    <!-- 2. HR Behavioral Practice -->
+    <div class="module-card">
+      <div>
+        <div class="module-card-icon">🤝</div>
+        <h3 class="module-card-title">HR Behavioral Interview Practice</h3>
+        <p class="module-card-desc">
+          Master common behavioral placement questions evaluated against the industry-standard STAR methodology (Situation, Task, Action, Result).
+        </p>
+      </div>
+      <div>
+        <a href="{{ url_for('hr.hr_page') }}" class="btn btn-primary btn-full">
+          Practice HR Questions →
+        </a>
+      </div>
+    </div>
+
+    <!-- 3. Group Discussion Practice -->
+    <div class="module-card">
+      <div>
+        <div class="module-card-icon">🗣️</div>
+        <h3 class="module-card-title">Group Discussion Practice</h3>
+        <p class="module-card-desc">
+          Generate trending GD topics, present persuasive arguments, and receive instant feedback on logical flow, examples, and counterarguments.
+        </p>
+      </div>
+      <div>
+        <a href="{{ url_for('gd.gd_page') }}" class="btn btn-primary btn-full">
+          Enter Group Discussion →
+        </a>
+      </div>
+    </div>
+
+    <!-- 4. English Communication Checker -->
+    <div class="module-card">
+      <div>
+        <div class="module-card-icon">✍️</div>
+        <h3 class="module-card-title">English Communication & Grammar</h3>
+        <p class="module-card-desc">
+          Analyze written paragraphs across Clarity, Grammar, Sentence Structure, Tone, and Vocabulary with placement readiness calibration.
+        </p>
+      </div>
+      <div>
+        <a href="{{ url_for('english.english_page') }}" class="btn btn-primary btn-full">
+          Launch English Checker →
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Recent Attempts Shortcut -->
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px; margin-bottom: 16px;">
+    <h2 style="font-size: 1.15rem; font-weight: 700; color: var(--text-main);">
+      📊 Recent Diagnostic History
+    </h2>
+    <a href="{{ url_for('history.history_page') }}" class="btn" style="background: var(--surface-alt); color: var(--primary); font-size: 0.85rem;">
+      View All History →
+    </a>
+  </div>
+
+  <div id="recentAttemptsList">
+    {% if stats.recent_attempts and stats.recent_attempts|length > 0 %}
+      <div class="history-list">
+        {% for attempt in stats.recent_attempts %}
+        <div class="history-card" style="padding: 16px 20px;">
+          <div class="history-top-row" style="margin-bottom: 4px;">
+            <div class="history-badge-group">
+              <span class="history-module-pill">{{ attempt.badge_label }}</span>
+              <span class="history-date">{{ attempt.created_at }}</span>
+            </div>
+            <div class="history-right-group">
+              <span class="history-score-pill {% if attempt.score >= 8 %}score-green{% elif attempt.score >= 5 %}score-yellow{% else %}score-red{% endif %}">
+                {{ attempt.score|round(1) }}/10
+              </span>
+            </div>
+          </div>
+          <div style="font-size: 0.94rem; font-weight: 600; color: var(--text-main);">
+            {{ attempt.title }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <div class="empty-state-icon">📋</div>
+        <p>No attempts recorded yet. Select any module above to begin your diagnostic preparation!</p>
+      </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

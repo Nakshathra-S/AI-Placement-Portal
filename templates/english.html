@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}English Communication & Grammar Checker — AI Placement Portal{% endblock %}
+
+{% block content %}
+<div class="portal-container">
+  
+  <h1 class="page-title">✍️ English Communication & Grammar Checker</h1>
+
+  <!-- Module information bar matching Screenshot 4 -->
+  <div class="module-bar">
+    <div class="module-bar-left">
+      <span class="module-bar-label">Module:</span>
+      <span class="module-bar-desc">Grammar, Vocabulary, Tone, and Readability Analysis</span>
+    </div>
+  </div>
+
+  <!-- Two-Column Practice Area -->
+  <div class="two-column-layout">
+
+    <!-- Left Column: Written Paragraph Input -->
+    <div class="content-card">
+      <div class="card-header-row">
+        <label for="englishTextInput" class="form-label" style="margin-bottom: 0; font-size: 0.94rem; font-weight: 700;">
+          Your Written Text / Paragraph:
+        </label>
+        <span class="word-count-badge highlight" id="englishWordCount">66 words</span>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 0;">
+        <textarea 
+          id="englishTextInput" 
+          class="form-textarea" 
+          placeholder="Enter a paragraph to evaluate grammar, professional tone, sentence variety, and placement readiness..."
+          rows="9"
+        >Climate change is when the weather patterns on Earth gets real different over a long time. Even though the planet used to get warmer and colder by itself back then, now it's happening way too fast because of what people is doing. We is burning too much stuff like coal and oil, which puts bad gases into the air and traps the heat like a greenhouse.</textarea>
+      </div>
+
+      <div class="card-footer-row">
+        <span class="footer-caption">Strict grammar & style checking active</span>
+        <button type="button" id="analyzeEnglishBtn" class="btn btn-primary">
+          <span>Analyze Written English →</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Column: Results Panel matching Screenshot 4 -->
+    <div class="eval-panel" id="englishResultPanel">
+      
+      <div class="eval-placeholder" id="englishPlaceholder" style="display: none;">
+        Enter your paragraph on the left and click Analyze Written English to receive your diagnostic breakdown.
+      </div>
+
+      <div id="englishResultsContent">
+        
+        <div class="score-header-box">
+          <div class="score-meta-label">INTERVIEW SCORE</div>
+          <div class="score-main-row">
+            <div class="big-score" id="englishScoreVal">4 <span>/ 10</span></div>
+            <div class="badge-status poor" id="englishStatusBadge">POOR</div>
+          </div>
+          
+          <div class="progress-container">
+            <div class="progress-track">
+              <div class="progress-fill red" id="englishProgressFill" style="width: 40%;"></div>
+            </div>
+            <div class="progress-labels">
+              <span>Placement Readiness Calibration</span>
+              <span id="englishReadinessPercent">40%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Score Breakdown Card matching Screenshot 4 -->
+        <div class="breakdown-card">
+          <div class="breakdown-title">
+            <span>📊</span>
+            <span>Score Breakdown</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-row-label">Clarity</span>
+            <span class="breakdown-row-val" id="scoreClarityVal">4/10</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-row-label">Grammar</span>
+            <span class="breakdown-row-val" id="scoreGrammarVal">3/10</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-row-label">Sentence Structure</span>
+            <span class="breakdown-row-val" id="scoreStructureVal">4/10</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-row-label">Tone</span>
+            <span class="breakdown-row-val" id="scoreToneVal">2/10</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-row-label">Vocabulary</span>
+            <span class="breakdown-row-val" id="scoreVocabVal">4/10</span>
+          </div>
+        </div>
+
+        <!-- Detected Corrections -->
+        <div class="detail-block" id="correctionsContainer" style="border-left: 3px solid var(--danger);">
+          <h4 style="color: var(--danger-text);">Identified Issues & Linguistic Corrections</h4>
+          <div id="correctionsList">
+            <div class="correction-item">
+              <span class="correction-original">gets real different</span>
+              <span class="correction-arrow">→</span>
+              <span class="correction-fixed">changes significantly</span>
+              <div class="correction-reason">Informal phrasing replaced with precise professional vocabulary.</div>
+            </div>
+            <div class="correction-item">
+              <span class="correction-original">We is burning</span>
+              <span class="correction-arrow">→</span>
+              <span class="correction-fixed">We are burning</span>
+              <div class="correction-reason">Subject-verb agreement error: 'We' requires plural verb 'are'.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Polished Model Version -->
+        <div class="detail-block" style="border-left: 3px solid var(--success);">
+          <h4 style="color: var(--success-text);">Polished Professional Version</h4>
+          <p id="correctedParagraphText" style="font-weight: 500;">
+            Climate change refers to significant, long-term alterations in Earth's weather patterns. While climatic shifts occurred naturally in past epochs, current changes are accelerating at an unprecedented rate due to anthropogenic activity. The widespread combustion of fossil fuels, such as coal and petroleum, releases greenhouse gas emissions into the atmosphere, trapping radiant heat.
+          </p>
+        </div>
+
+        <!-- Feedback & Suggestions -->
+        <div class="detail-block">
+          <h4>Feedback & Recommendations</h4>
+          <p id="englishFeedbackText">
+            The passage demonstrates a sound conceptual grasp of environmental science, but relies on colloquial idioms and colloquial terms ('real different', 'stuff like') that diminish professional impact in interview assessments.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/english.js') }}"></script>
+{% endblock %}
